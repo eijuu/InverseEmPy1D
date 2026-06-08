@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1746</width>
+    <height>872</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,4,1">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btnLoad">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>116</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>116</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>Load data</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/file_open_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/file_open_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Loop height, m</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Loop area, m2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="comboBoxSelectProfile">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Select profile</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="edLoopHeight">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>40</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QLabel" name="lblPath">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
+          <property name="text">
+           <string>path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="edLoopArea">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>2500</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>84</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>84</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Min-Max index times for proccess</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,4,0,0">
+           <item>
+            <widget class="QSpinBox" name="spinBoxBeginTime"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>—</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBoxEndTime"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSetBeginEndForSelected">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>122</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Apply</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>C:/Users/user/.designer/backup/icons/tools_pliers_wire_stripper_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/tools_pliers_wire_stripper_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSetBeginEndForAll">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>116</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Apply for All</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnSaveData">
+          <property name="minimumSize">
+           <size>
+            <width>116</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>116</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Save data</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tablePickets">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>320</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="textElideMode">
+         <enum>Qt::ElideRight</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,1" columnminimumwidth="1,1,1">
+        <item row="6" column="2">
+         <widget class="QPushButton" name="btnPlotCrossSection">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Plot Cross-Section</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="checkBoxIgnoreInvertedValue">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ignore Neg Value</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btnDirectProblemAll">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>All Direct problem</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QPushButton" name="btnInverseProblemMulti">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Multi Inverse</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="btnInverseProblemAll">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>All Inverse problem</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="checkBoxUseRobustError">
+          <property name="maximumSize">
+           <size>
+            <width>85</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Robust err</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="brnSelectFilters">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Filters</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="lblHtArg">
+          <property name="text">
+           <string>Hankel:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="comboBoxSelectInverseMethods">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>L-BFGS-B</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Powell</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Nelder-Mead</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>TNC</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>SLSQP</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnDirectProblem">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Direct</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/bolt_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/bolt_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Inverse method:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnDirectProblemMulti">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Multi Direct</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="checkBoxVCI">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>VCI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QPushButton" name="btnInverseProblem">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Inverse</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/rocket_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSpinBox" name="spinBoxMaxIteration">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="lblFtArg">
+          <property name="text">
+           <string>Fourier:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="progressBar">
+        <property name="maximumSize">
+         <size>
+          <width>320</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tab_widget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabProfile">
+       <attribute name="title">
+        <string>Cross-section</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="layoutProfileButtons">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMinimumSize</enum>
+          </property>
+          <item>
+           <widget class="QPushButton" name="btnSmoothModelThickness">
+            <property name="minimumSize">
+             <size>
+              <width>116</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>116</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Smooth h</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>C:/Users/user/.designer/backup/icons/waves_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/waves_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnSmoothModelRho">
+            <property name="minimumSize">
+             <size>
+              <width>116</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>116</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Smooth rho</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>C:/Users/user/.designer/backup/icons/transition_fade_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/transition_fade_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnSmoothModelBoth">
+            <property name="minimumSize">
+             <size>
+              <width>116</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>116</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Smooth both</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>C:/Users/user/.designer/backup/icons/landscape_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/landscape_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnCrossSectionSettings">
+            <property name="text">
+             <string>Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layoutGraphics"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabMap">
+       <attribute name="title">
+        <string>Map</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QHBoxLayout" name="layoutMapButtons">
+          <item>
+           <widget class="QPushButton" name="btnExcludingProfiles">
+            <property name="text">
+             <string>Excluding PR</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnMapSectionSettings">
+            <property name="text">
+             <string>Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnPrepareData">
+            <property name="text">
+             <string>Prepare data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnDrawMap">
+            <property name="text">
+             <string>Draw</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="layoutMapMain" stretch="0,1">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMinimumSize</enum>
+            </property>
+            <item>
+             <widget class="QSlider" name="verticalSliderMap">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCurrentDepth">
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="layoutMapGraphics">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMaximumSize</enum>
+            </property>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabPseudoSection">
+       <attribute name="title">
+        <string>Pseudo-section</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,1">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMinimumSize</enum>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layoutPseudoSection"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>14</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Model</string>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnCreateVCILayers">
+        <property name="text">
+         <string>Create VCI layers</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tableModel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="2" column="2">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="btnAddLayer">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Add</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>C:/Users/user/.designer/backup/icons/add_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/add_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="btnDeleteLayer">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Delete</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>C:/Users/user/.designer/backup/icons/delete_forever_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/delete_forever_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="btnCopyModel">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Copy</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>C:/Users/user/.designer/backup/icons/content_copy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/content_copy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="btnCopyModelBorders">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Copy Borders</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="btnPasteModel">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Paste</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="btnPasteModelForAll">
+           <property name="minimumSize">
+            <size>
+             <width>116</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>116</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Paste to All</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>14</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Model Borders</string>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tableModelBorders">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1746</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad_data_2"/>
+    <addaction name="actionSave_data_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_to_ZondTEM1D"/>
+    <addaction name="actionExport_results_to_text_dat"/>
+    <addaction name="actionExport_results_by_horizontal_slice_to_text_dat"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionVCI_alpha"/>
+    <addaction name="actionSrcpts"/>
+    <addaction name="actionAuto_fitting_srcpts"/>
+    <addaction name="actionTurn_off_0_01_ms"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_data">
+   <property name="text">
+    <string>Load data</string>
+   </property>
+  </action>
+  <action name="actionSave_data">
+   <property name="text">
+    <string>Save data</string>
+   </property>
+  </action>
+  <action name="actionL_BFGS_B">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>L-BFGS-B</string>
+   </property>
+  </action>
+  <action name="actionPowell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Powell</string>
+   </property>
+  </action>
+  <action name="actionNelder_Mead">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Nelder Mead</string>
+   </property>
+  </action>
+  <action name="actionSLSQP">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>SLSQP</string>
+   </property>
+  </action>
+  <action name="actionTNC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>TNC</string>
+   </property>
+  </action>
+  <action name="actionMAX_ITER">
+   <property name="text">
+    <string>MAX_ITER: </string>
+   </property>
+  </action>
+  <action name="actionLoad_data_2">
+   <property name="text">
+    <string>Load data</string>
+   </property>
+  </action>
+  <action name="actionSave_data_2">
+   <property name="text">
+    <string>Save data</string>
+   </property>
+  </action>
+  <action name="actionExport_to_ZondTEM1D">
+   <property name="text">
+    <string>Export to ZondTEM1D</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_81_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_81_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_101_2012">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_101_2012</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_201_2012">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_201_2012</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_241_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_241_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_601_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_601_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_grayver_50_2021">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>grayver_50_2021</string>
+   </property>
+  </action>
+  <action name="action_hankel_wer_101_2020a">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>wer_101_2020a</string>
+   </property>
+  </action>
+  <action name="action_hankel_wer_101_2020b">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>wer_101_2020b</string>
+   </property>
+  </action>
+  <action name="actionkey_81_2009">
+   <property name="text">
+    <string>key_81_2009</string>
+   </property>
+  </action>
+  <action name="actionkey_101_2012">
+   <property name="text">
+    <string>key_101_2012</string>
+   </property>
+  </action>
+  <action name="actionkey_201_2012">
+   <property name="text">
+    <string>key_201_2012</string>
+   </property>
+  </action>
+  <action name="action_hankel_wer_201_2018">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>wer_201_2018</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_101_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_101_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_201_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_201_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_401_2009">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_401_2009</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_51_2012">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_51_2012</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_101_2013">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_101_2012</string>
+   </property>
+  </action>
+  <action name="action_hankel_key_201_2013">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>key_201_2012</string>
+   </property>
+  </action>
+  <action name="actionVCI_alpha">
+   <property name="text">
+    <string>VCI alpha: 0.1</string>
+   </property>
+  </action>
+  <action name="actionSrcpts">
+   <property name="text">
+    <string>srcpts: 7</string>
+   </property>
+  </action>
+  <action name="actionAuto_fitting_srcpts">
+   <property name="text">
+    <string>auto fitting srcpts</string>
+   </property>
+  </action>
+  <action name="actionTurn_off_0_01_ms">
+   <property name="text">
+    <string>turn_off: 0.01 ms</string>
+   </property>
+  </action>
+  <action name="actionExport_results_to_text_dat">
+   <property name="text">
+    <string>Export results by PR to text (*.dat)</string>
+   </property>
+  </action>
+  <action name="actionExport_results_by_horizontal_slice_to_text_dat">
+   <property name="text">
+    <string>Export results by horizontal slice to text (*.dat)</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
