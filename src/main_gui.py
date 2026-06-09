@@ -284,7 +284,12 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.curvesPlot.canvas.draw_idle()
 
     def cross_section_plot(self, data_for_mesh, data_for_errors):
-
+        """
+        Отрисовка разреза
+        :param data_for_mesh:
+        :param data_for_errors:
+        :return:
+        """
         X, Z, rho_by_every_meter_2d = data_for_mesh
         distances, errors, pickets = data_for_errors
         errors = errors * 100
@@ -354,7 +359,13 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.crossSectionPlot.canvas.draw_idle()
 
     def map_plot(self, points, ab, current_pr=None):
-
+        """
+        Отрисовка карты
+        :param points:
+        :param ab:
+        :param current_pr:
+        :return:
+        """
         for ax in self.mapPlot.canvas.figure.axes:
             #ax.set_xscale('linear')
             #ax.set_yscale('linear')   # Чтобы не было warning non-linear

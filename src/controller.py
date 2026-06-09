@@ -24,7 +24,7 @@ from PyQt6.QtWidgets import QTableWidgetItem, QApplication, QInputDialog, QMessa
 from scipy.optimize import minimize
 import utils
 from main_gui import MainGui
-from model import Model, ModelEnvironment, PointSounding
+from models import SurveyData, ModelEnvironment, PointSounding
 import logging
 
 
@@ -146,7 +146,7 @@ class MainController:
     MAX_PROCESS_LIMIT: int
 
     def __init__(self, version):
-        self.model = Model()
+        self.model = SurveyData()
         self.view = MainGui()
         self.view.setWindowTitle(f'InverseEmPy1D [{version}]')
         self._connect_signals()
@@ -983,7 +983,7 @@ class MainController:
             self.prepare_data_for_map_section()
 
     def select_filters(self):
-        selected = self.view.show_select_filters(Model.get_hankel_filter(), Model.get_fourier_filter(), self.dlf_filters)
+        selected = self.view.show_select_filters(SurveyData.get_hankel_filter(), SurveyData.get_fourier_filter(), self.dlf_filters)
         if selected:
             self.dlf_filters = selected
             with open('filters', 'w', encoding='utf-8') as f:
@@ -1068,7 +1068,6 @@ class MainController:
     def on_map_vertical_slider_moved(self):
         self.view.lblCurrentDepth.setText(f'{self.view.verticalSliderMap.value()}')
         self.map_plot()
-        #sleep(5)
 
     def tab_widget_page_change(self):
         if self.view.tab_widget.currentIndex() == 1:
