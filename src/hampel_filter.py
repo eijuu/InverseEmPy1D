@@ -16,15 +16,19 @@
 
 
 import numpy as np
+from numba import njit
+from numpy.typing import NDArray
 
 
-def __mad(uwn):
+@njit
+def __mad(uwn: NDArray[np.float64]) -> np.float64:
     m = np.median(uwn)
     uw = uwn - m
     return np.median(uw) * 1.483
 
 
-def __delta_psi_function(x, c1=1.2, c2=3.5, c3=8):
+@njit
+def __delta_psi_function(x: float, c1: float = 1.2, c2: float = 3.5, c3 : float = 8) -> float:
     abs_x = abs(x)
     if abs_x < c1:
         return 1
@@ -36,7 +40,8 @@ def __delta_psi_function(x, c1=1.2, c2=3.5, c3=8):
         return 0
 
 
-def __psi_function(x, c1=1.2, c2=3.5, c3=8):
+@njit
+def __psi_function(x: float, c1: float = 1.2, c2: float = 3.5, c3 : float = 8) -> float:
     abs_x = abs(x)
     if abs_x < c1:
         return x
@@ -48,14 +53,15 @@ def __psi_function(x, c1=1.2, c2=3.5, c3=8):
         return 0
 
 
-def __mu_estimate(uwn, _concll):
+@njit
+def __mu_estimate(uwn: NDArray[np.float64], _concll: float):
     m = np.median(uwn)
     sigma = __mad(uwn)
     a = _concll * 2
     if sigma < 1e-10:
         a = 0
     while abs(a) > _concll:
-        new_uwn = (np.array(uwn) - m) / sigma
+        new_uwn = (uwn - m) / sigma
         upp = 0
         dawn = 0
         for u in new_uwn:
@@ -69,7 +75,8 @@ def __mu_estimate(uwn, _concll):
     return m
 
 
-def mu_estimate_smooth(sm, size_win, _concll=1e-7):
+@njit
+def mu_estimate_smooth(sm: NDArray[np.float64], size_win: int, _concll: float = 1e-7) -> NDArray[np.float64]:
     md2 = int((size_win - 1) / 2)
     um = np.zeros_like(sm)
     for i in range(md2, len(sm) - md2):
@@ -82,7 +89,8 @@ def mu_estimate_smooth(sm, size_win, _concll=1e-7):
     return um
 
 
-def mu_estimate_smooth_cutted(sm, size_win, _concll=1e-7):
+@njit
+def mu_estimate_smooth_cutted(sm: NDArray[np.float64], size_win: int, _concll: float = 1e-7) -> NDArray[np.float64]:
     md2 = int((size_win - 1) / 2)
     valid_len = len(sm) - md2 * 2
     um = np.zeros(valid_len)
@@ -90,5 +98,3 @@ def mu_estimate_smooth_cutted(sm, size_win, _concll=1e-7):
         fant = sm[i - md2: i + md2 + 1]
         um[i - md2] = __mu_estimate(fant, _concll)
     return um
-
-

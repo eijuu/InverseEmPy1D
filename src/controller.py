@@ -15,17 +15,19 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import logging
 import os
 import time as tmr
 from datetime import datetime
 from multiprocessing import Pool
+
 import numpy as np
 from PyQt6.QtWidgets import QTableWidgetItem, QApplication, QInputDialog, QMessageBox
 from scipy.optimize import minimize
+
 import utils
 from main_gui import MainGui
 from models import SurveyData, ModelEnvironment, PointSounding
-import logging
 
 
 def inverse_problem_for_one_point(args: PointSounding | None, callback=None):
@@ -189,8 +191,8 @@ class MainController:
         self.view.btnInverseProblemAll.clicked.connect(lambda: self.inverse_problem_calculate_united('all'))
 
         # Настройка срезов времен
-        self.view.btnSetBeginEndForAll.clicked.connect(self.set_begin_end_for_all)
-        self.view.btnSetBeginEndForSelected.clicked.connect(self.set_begin_end_for_selected)
+        self.view.btnBeginTimeApply.clicked.connect(self.set_begin_index_time_for_selected)
+        self.view.btnEndTimeApply.clicked.connect(self.set_end_index_time_for_selected)
 
         # Отрисовка разреза
         self.view.btnPlotCrossSection.clicked.connect(self.cross_section_plot)
@@ -220,8 +222,8 @@ class MainController:
         self.view.comboBoxSelectInverseMethods.activated.connect(self.select_inverse_method)
 
         # текстовые поля
-        self.view.edLoopArea.textChanged.connect(self.edit_loop_area)
-        self.view.edLoopHeight.textChanged.connect(self.edit_loop_height)
+        self.view.btnLoopAreaApply.clicked.connect(self.set_loop_area)
+        self.view.btnLoopHeightApply.clicked.connect(self.set_loop_height)
 
         # изменение модели
         self.view.tableModel.cellClicked.connect(self.change_model_layer_controller)
@@ -231,6 +233,7 @@ class MainController:
         self.view.checkBoxUseRobustError.clicked.connect(self.set_use_robust_value)
         self.view.checkBoxIgnoreInvertedValue.clicked.connect(self.set_ignore_negative_value)
         self.view.checkBoxVCI.clicked.connect(self.set_vci_value)
+        self.view.checkBoxTablePicketsAdvanceColumnView.clicked.connect(self.checkbox_table_picket_advance_column_view_check)
 
         # карта
         self.view.tab_widget.currentChanged.connect(self.tab_widget_page_change)
@@ -303,17 +306,42 @@ class MainController:
         current_profile = int(self.view.get_selected_profile())
         # получение списка пикетов из текущего профиля
         pickets_list = self.model.get_picket_list(current_profile)
-        # заполнение ошибки
+        # заполнение
         error_list = [0.0] * len(pickets_list)
+        area_list = [0.0] * len(pickets_list)
+        height_list = [0.0] * len(pickets_list)
+        src_pts_list = [0] * len(pickets_list)
+        begin_time_list = [0] * len(pickets_list)
+        end_time_list = [0] * len(pickets_list)
         for i in range(len(error_list)):
             p = self.model.get_point(current_profile, pickets_list[i])
             error_list[i] = p.error_value * 100
+            area_list[i] = p.loop_area
+            height_list[i] = p.loop_height
+            src_pts_list[i] = p.src_pts
+            begin_time_list[i] = p.begin_time
+            end_time_list[i] = p.end_time
         # заполняем таблицу пикетов
-        self.view.fill_table_pickets(pickets_list, error_list)
+        self.view.fill_table_pickets(pickets_list, error_list, area_list, height_list, src_pts_list, begin_time_list, end_time_list)
         # отрисуем разрез текущего профиля
         self.cross_section_plot()
         # карта
         self.map_plot()
+
+    def update_table_picket(self):
+        pr = int(self.view.comboBoxSelectProfile.currentText())
+        selected_indexes = self.view.tablePickets.selectionModel().selectedRows()
+        for index in selected_indexes:
+            row = index.row()
+            pk = int(self.view.tablePickets.item(row, 0).text())
+            point = self.model.get_point(pr, pk)
+
+            self.view.tablePickets.item(row, 1).setText(f'{point.error_value * 100:.2f}')
+            self.view.tablePickets.item(row, 3).setText(f'{point.loop_area:.2f}')
+            self.view.tablePickets.item(row, 4).setText(f'{point.loop_height:.2f}')
+            self.view.tablePickets.item(row, 5).setText(f'{point.src_pts:d}')
+            self.view.tablePickets.item(row, 6).setText(f'{point.begin_time:d}')
+            self.view.tablePickets.item(row, 7).setText(f'{point.end_time:d}')
 
     def picket_table_clicked(self):
         row = self.view.tablePickets.currentRow()
@@ -359,6 +387,9 @@ class MainController:
         self.view.spinBoxBeginTime.setValue(self.model.current_point().begin_time)
         self.view.spinBoxEndTime.setValue(self.model.current_point().end_time)
 
+        self.view.edLoopHeight.setText(f'{self.model.current_point().loop_height}')
+        self.view.edLoopArea.setText(f'{self.model.current_point().loop_area}')
+
         # src pts
         self.view.fill_srcpts_menu(self.model.current_point().src_pts)
 
@@ -376,25 +407,49 @@ class MainController:
         self.view.fill_table_model_only_value(self.model.current_point().model_environment.rho_value,
                                               self.model.current_point().model_environment.thickness_value)
 
-    def edit_loop_area(self):
-        self.set_loop_area()
-
-    def edit_loop_height(self):
-        self.set_loop_height()
-
     def set_loop_area(self):
-        area_str = self.view.edLoopArea.text()
-        area_float = utils.try_str_to_float(area_str)
+        if self.model.current_index == -1:
+            return
+        pr = int(self.view.comboBoxSelectProfile.currentText())
+        selected_indexes = self.view.tablePickets.selectionModel().selectedRows()
+        if not selected_indexes:
+            return
+        area = self.view.edLoopArea.text()
+        area_float = utils.try_str_to_float(area)
         if area_float is None:
             return
-        self.model.set_loop_area(area_float)
+        self.view.enable_gui_element(False)  # lock gui
+
+        for row in selected_indexes:
+            pk = int(self.view.tablePickets.item(row.row(), 0).text())
+            point_index = self.model.get_index(pr, pk)
+            self.model.points[point_index].loop_area = area
+
+        self.change_current_picket()
+        self.update_table_picket()
+        self.view.enable_gui_element(True)  # unlock gui
 
     def set_loop_height(self):
-        height_str = self.view.edLoopHeight.text()
-        height_float = utils.try_str_to_float(height_str)
+        if self.model.current_index == -1:
+            return
+        pr = int(self.view.comboBoxSelectProfile.currentText())
+        selected_indexes = self.view.tablePickets.selectionModel().selectedRows()
+        if not selected_indexes:
+            return
+        height = self.view.edLoopHeight.text()
+        height_float = utils.try_str_to_float(height)
         if height_float is None:
             return
-        self.model.set_height_fly(height_float)
+        self.view.enable_gui_element(False)  # lock gui
+
+        for row in selected_indexes:
+            pk = int(self.view.tablePickets.item(row.row(), 0).text())
+            point_index = self.model.get_index(pr, pk)
+            self.model.points[point_index].loop_height = height_float
+
+        self.change_current_picket()
+        self.update_table_picket()
+        self.view.enable_gui_element(True)  # unlock gui
 
     def set_begin_end_for_all(self):
         """
@@ -408,36 +463,51 @@ class MainController:
             self.model.set_begin_end_index_times_for_all(begin, end)
             self.view.enable_gui_element(True)  # unlock gui
 
-    def set_begin_end_for_selected(self):
+    def set_begin_index_time_for_selected(self):
         """
         Изменение диапазона времен для выбранных точек
         :return:
         """
         if self.model.current_index == -1:
             return
-        self.view.enable_gui_element(False)  # lock gui
-        selected_indexes = self.view.tablePickets.selectedIndexes()
-        selected_rows = list(set(index.row() for index in selected_indexes))
-        self.view.progress_bar_initial_settings(0, len(selected_rows))
         pr = int(self.view.comboBoxSelectProfile.currentText())
-        selected_pk = [-1] * len(selected_rows)
-        for i, row in enumerate(selected_rows):
-            picket = self.view.tablePickets.item(row, 0)
-            selected_pk[i] = int(picket.text())
-
-        selected_index_in_list = [-1] * len(selected_pk)
-        for i, pk in enumerate(selected_pk):
-            selected_index_in_list[i] = self.model.get_index(pr, pk)
-
+        selected_indexes = self.view.tablePickets.selectionModel().selectedRows()
+        if not selected_indexes:
+            return
         begin = self.view.spinBoxBeginTime.value()
-        end = self.view.spinBoxEndTime.value()
+        self.view.enable_gui_element(False)  # lock gui
 
-        for i in selected_index_in_list:
-            self.model.points[i].set_begin_end_index_times(begin, end)
-            self.model.points[i].direct_problem_calculate()
-            self.model.points[i].error_value_calculate()
-            self.view.progress_bar_iteration()
+        for row in selected_indexes:
+            pk = int(self.view.tablePickets.item(row.row(), 0).text())
+            point_index = self.model.get_index(pr, pk)
+            self.model.points[point_index].set_begin_index_times(begin)
+
         self.change_current_picket()
+        self.update_table_picket()
+        self.view.enable_gui_element(True)  # unlock gui
+
+    def set_end_index_time_for_selected(self):
+        """
+        Изменение диапазона времен для выбранных точек
+        :return:
+        """
+
+        if self.model.current_index == -1:
+            return
+        pr = int(self.view.comboBoxSelectProfile.currentText())
+        selected_indexes = self.view.tablePickets.selectionModel().selectedRows()
+        if not selected_indexes:
+            return
+        end = self.view.spinBoxEndTime.value()
+        self.view.enable_gui_element(False)  # lock gui
+
+        for row in selected_indexes:
+            pk = int(self.view.tablePickets.item(row.row(), 0).text())
+            point_index = self.model.get_index(pr, pk)
+            self.model.points[point_index].set_end_index_times(end)
+
+        self.change_current_picket()
+        self.update_table_picket()
         self.view.enable_gui_element(True)  # unlock gui
 
     def set_turn_off(self, value):
@@ -1112,3 +1182,6 @@ class MainController:
         self.view.pseudo_curvesPlot.ax.set_ylabel('Emf/I, mV/A')
         self.view.pseudo_curvesPlot.figure.tight_layout()
         self.view.pseudo_curvesPlot.canvas.draw_idle()
+
+    def checkbox_table_picket_advance_column_view_check(self):
+        self.view.table_picket_hidden_column()

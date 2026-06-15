@@ -19,7 +19,7 @@ import sys
 from PyQt6.QtWidgets import QApplication
 from controller import MainController
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

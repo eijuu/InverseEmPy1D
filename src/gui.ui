@@ -18,7 +18,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QGridLayout" name="gridLayout_4">
+       <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="1">
          <widget class="QPushButton" name="btnLoad">
           <property name="sizePolicy">
@@ -51,58 +51,26 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Loop height, m</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Loop area, m2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QComboBox" name="comboBoxSelectProfile">
-          <property name="maximumSize">
+        <item row="1" column="1">
+         <widget class="QPushButton" name="btnSaveData">
+          <property name="minimumSize">
            <size>
-            <width>150</width>
-            <height>16777215</height>
+            <width>116</width>
+            <height>0</height>
            </size>
           </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label">
           <property name="maximumSize">
            <size>
-            <width>150</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Select profile</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="edLoopHeight">
-          <property name="maximumSize">
-           <size>
-            <width>66</width>
+            <width>116</width>
             <height>16777215</height>
            </size>
           </property>
           <property name="text">
-           <string>40</string>
+           <string>Save data</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
           </property>
          </widget>
         </item>
@@ -131,128 +99,52 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="edLoopArea">
-          <property name="maximumSize">
-           <size>
-            <width>66</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>2500</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QGroupBox" name="groupBox">
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>84</height>
-           </size>
-          </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
-            <height>84</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Min-Max index times for proccess</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,1,4,0,0">
-           <item>
-            <widget class="QSpinBox" name="spinBoxBeginTime"/>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>—</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBoxEndTime"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnSetBeginEndForSelected">
-             <property name="minimumSize">
-              <size>
-               <width>80</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>122</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Apply</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>C:/Users/user/.designer/backup/icons/tools_pliers_wire_stripper_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/tools_pliers_wire_stripper_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnSetBeginEndForAll">
-             <property name="minimumSize">
-              <size>
-               <width>80</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>116</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Apply for All</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="btnSaveData">
-          <property name="minimumSize">
-           <size>
-            <width>116</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>116</width>
+            <width>150</width>
             <height>16777215</height>
            </size>
           </property>
-          <property name="text">
-           <string>Save data</string>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          <property name="text">
+           <string>Select profile</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBoxSelectProfile">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBoxTablePicketsAdvanceColumnView">
+        <property name="text">
+         <string>Advance column view</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QTableWidget" name="tablePickets">
@@ -287,131 +179,7 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,1" columnminimumwidth="1,1,1">
-        <item row="6" column="2">
-         <widget class="QPushButton" name="btnPlotCrossSection">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Plot Cross-Section</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBoxIgnoreInvertedValue">
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Ignore Neg Value</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="btnDirectProblemAll">
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>All Direct problem</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QPushButton" name="btnInverseProblemMulti">
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Multi Inverse</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QPushButton" name="btnInverseProblemAll">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>All Inverse problem</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBoxUseRobustError">
-          <property name="maximumSize">
-           <size>
-            <width>85</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Robust err</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="brnSelectFilters">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>80</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Filters</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="lblHtArg">
-          <property name="text">
-           <string>Hankel:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
+        <item row="11" column="1">
          <widget class="QComboBox" name="comboBoxSelectInverseMethods">
           <property name="maximumSize">
            <size>
@@ -446,7 +214,46 @@
           </item>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>End time index for proccess</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QCheckBox" name="checkBoxIgnoreInvertedValue">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ignore Neg Value</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QCheckBox" name="checkBoxUseRobustError">
+          <property name="maximumSize">
+           <size>
+            <width>85</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Robust err</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
          <widget class="QPushButton" name="btnDirectProblem">
           <property name="enabled">
            <bool>true</bool>
@@ -478,7 +285,66 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="11" column="2">
+         <widget class="QSpinBox" name="spinBoxMaxIteration">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QPushButton" name="btnPlotCrossSection">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Plot Cross-Section</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="btnLoopHeightApply">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QPushButton" name="btnDirectProblemMulti">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Multi Direct</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
          <widget class="QLabel" name="label_7">
           <property name="minimumSize">
            <size>
@@ -502,8 +368,54 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="btnDirectProblemMulti">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Loop height, m</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Begin time index for proccess</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QPushButton" name="btnDirectProblemAll">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>All Direct problem</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QCheckBox" name="checkBoxVCI">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>VCI</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="2">
+         <widget class="QPushButton" name="btnInverseProblemAll">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -517,24 +429,11 @@
            </size>
           </property>
           <property name="text">
-           <string>Multi Direct</string>
+           <string>All Inverse problem</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBoxVCI">
-          <property name="maximumSize">
-           <size>
-            <width>80</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>VCI</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
+        <item row="12" column="0">
          <widget class="QPushButton" name="btnInverseProblem">
           <property name="minimumSize">
            <size>
@@ -557,20 +456,150 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QSpinBox" name="spinBoxMaxIteration">
+        <item row="9" column="0">
+         <widget class="QPushButton" name="brnSelectFilters">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Filters</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="spinBoxBeginTime">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="1">
+         <widget class="QPushButton" name="btnInverseProblemMulti">
           <property name="maximumSize">
            <size>
             <width>120</width>
             <height>16777215</height>
            </size>
           </property>
+          <property name="text">
+           <string>Multi Inverse</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+          </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="6" column="0" colspan="3">
+         <widget class="QLabel" name="label_2">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Proccess</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="2">
          <widget class="QLabel" name="lblFtArg">
           <property name="text">
            <string>Fourier:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="spinBoxEndTime">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="edLoopHeight">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>40</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLabel" name="lblHtArg">
+          <property name="text">
+           <string>Hankel:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Loop area, m2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="edLoopArea">
+          <property name="maximumSize">
+           <size>
+            <width>66</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>2500</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="btnLoopAreaApply">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="btnBeginTimeApply">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="btnEndTimeApply">
+          <property name="text">
+           <string>Apply</string>
           </property>
          </widget>
         </item>

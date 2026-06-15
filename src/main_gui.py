@@ -18,7 +18,7 @@
 import os.path
 import matplotlib
 import numpy as np
-from PyQt6.QtGui import QColor, QBrush
+from PyQt6.QtGui import QColor, QBrush, QFontMetrics
 from PyQt6.QtWidgets import *
 from matplotlib import cm, ticker
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
@@ -65,11 +65,30 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.lblPath.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         # Таблица пикетов
-        self.tablePickets.setColumnCount(3)
-        self.tablePickets.setHorizontalHeaderLabels(['Pickets', 'Error, %', 'Status'])
-        self.tablePickets.setColumnWidth(0, 75)
-        self.tablePickets.setColumnWidth(1, 75)
-        self.tablePickets.setColumnWidth(2, 90)
+        table_pickets_header = ['Pk', 'Error, %', 'Status', 'Area, m2', 'Height, m', 'src_pts', 'begin', 'end']
+
+        self.tablePickets.setColumnCount(len(table_pickets_header))
+        self.tablePickets.setHorizontalHeaderLabels(table_pickets_header)
+        #self.verticalLayout_2.parentWidget().width()
+
+        self.tablePickets.setMaximumWidth(int(self.width() / 4))
+        # ширина колонок
+        metrics = QFontMetrics(self.tablePickets.font())
+        self.tablePickets.setColumnWidth(0, metrics.horizontalAdvance('00000____'))
+        self.tablePickets.setColumnWidth(1, metrics.horizontalAdvance('Error, %____'))
+        self.tablePickets.setColumnWidth(2, metrics.horizontalAdvance('Status____'))
+        self.tablePickets.setColumnWidth(3, metrics.horizontalAdvance('Area, m2__'))
+        self.tablePickets.setColumnWidth(4, metrics.horizontalAdvance('Height, m__'))
+        self.tablePickets.setColumnWidth(5, metrics.horizontalAdvance('src_pts__'))
+        self.tablePickets.setColumnWidth(6, metrics.horizontalAdvance('begin__'))
+        self.tablePickets.setColumnWidth(7, metrics.horizontalAdvance('end__'))
+        # видимость
+        self.tablePickets.setColumnHidden(3, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(4, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(5, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(6, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(7, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+
         self.tablePickets.setRowCount(0)
 
         # Таблица моделей
@@ -233,14 +252,22 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.comboBoxSelectProfile.clear()
         self.comboBoxSelectProfile.addItems(profile_list)
 
-    def fill_table_pickets(self, pickets_list, error_list):
+    def fill_table_pickets(self, pickets_list: list, error_list: list, area_list: list, height_list: list,
+                           src_pts_list: list,
+                           begin_time_list: list,
+                           end_time_list: list) -> None:
         self.tablePickets.clearContents()
         self.tablePickets.setRowCount(0)
         self.tablePickets.setRowCount(len(pickets_list))
-        for i, (pk, err) in enumerate(zip(pickets_list, error_list)):
-            self.tablePickets.setItem(i, 0, QTableWidgetItem(str(pk)))
-            self.tablePickets.setItem(i, 1, QTableWidgetItem(f'{err:.2f}'))
+        for i in range(len(pickets_list)):
+            self.tablePickets.setItem(i, 0, QTableWidgetItem(str(pickets_list[i])))
+            self.tablePickets.setItem(i, 1, QTableWidgetItem(f'{error_list[i]:.2f}'))
             self.tablePickets.setItem(i, 2, QTableWidgetItem('Ready'))
+            self.tablePickets.setItem(i, 3, QTableWidgetItem(f'{area_list[i]:.2f}'))
+            self.tablePickets.setItem(i, 4, QTableWidgetItem(f'{height_list[i]:.2f}'))
+            self.tablePickets.setItem(i, 5, QTableWidgetItem(f'{src_pts_list[i]:d}'))
+            self.tablePickets.setItem(i, 6, QTableWidgetItem(f'{begin_time_list[i]:d}'))
+            self.tablePickets.setItem(i, 7, QTableWidgetItem(f'{end_time_list[i]:d}'))
         self.tablePickets.resizeColumnsToContents()
 
     def get_selected_profile(self):
@@ -559,8 +586,11 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.checkBoxIgnoreInvertedValue.setEnabled(lock)
         self.checkBoxVCI.setEnabled(lock)
 
-        self.btnSetBeginEndForAll.setEnabled(lock)
-        self.btnSetBeginEndForSelected.setEnabled(lock)
+        self.btnBeginTimeApply.setEnabled(lock)
+        self.btnEndTimeApply.setEnabled(lock)
+
+        self.btnLoopAreaApply.setEnabled(lock)
+        self.btnLoopHeightApply.setEnabled(lock)
 
         self.comboBoxSelectInverseMethods.setEnabled(lock)
 
@@ -638,3 +668,13 @@ class MainGui(QMainWindow, Ui_MainWindow):
             return True
         else:
             return False
+
+    def table_picket_hidden_column(self):
+        # видимость
+        self.tablePickets.setColumnHidden(1, self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(2, self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(3, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(4, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(5, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(6, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+        self.tablePickets.setColumnHidden(7, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())

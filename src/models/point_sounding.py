@@ -15,8 +15,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import numpy as np
 import empymod
+import numpy as np
+
 from src import hampel_filter
 from src.utils import CoordinatePoint
 from .model_environment import ModelEnvironment
@@ -44,6 +45,7 @@ class PointSounding:
     times: np.ndarray
     observed_curve: np.ndarray
     theory_curve: np.ndarray
+    weights: np.ndarray
     model_environment: ModelEnvironment
     use_robust: bool
     ignore_negative_value: bool
@@ -74,6 +76,7 @@ class PointSounding:
         self.times = np.array([])
         self.observed_curve = np.array([])
         self.theory_curve = np.array([])
+        self.weights = np.array([])
         self.error_value = 0.0
         self.model_environment = ModelEnvironment()
 
@@ -266,10 +269,7 @@ class PointSounding:
             s += f'{self.model_environment.thickness_value[i]:.2f}' + '\t'
             s += f'{self.model_environment.thickness_value_min[i]:.2f}' + '\t'
             s += f'{self.model_environment.thickness_value_max[i]:.2f}' + '\t'
-            s += str(self.model_environment.thickness_value_fix[i]) + '\t'
-            s += str(self.begin_time) + '\t'
-            s += str(self.end_time) + '\t'
-            s += str(self.src_pts) + '\n'
+            s += str(self.model_environment.thickness_value_fix[i]) + '\n'
 
         # для последних слоев
         s += str(self.pr) + '\t'
@@ -282,15 +282,17 @@ class PointSounding:
         s += str(0) + '\t'
         s += str(0) + '\t'
         s += str(0) + '\t'
-        s += str(0) + '\t'
-        s += str(self.begin_time) + '\t'
-        s += str(self.end_time) + '\t'
-        s += str(self.src_pts)
-
+        s += str(0)
         return s
 
     def set_begin_end_index_times(self, begin: int, end: int):
         self.begin_time = begin
+        self.end_time = end
+
+    def set_begin_index_times(self, begin: int):
+        self.begin_time = begin
+
+    def set_end_index_times(self, end: int):
         self.end_time = end
 
     def auto_fitting_srcpts(self, default_value=11, err=0.05):
@@ -320,3 +322,16 @@ class PointSounding:
         h = (1 + 1j * p_dict['freq'] / cut_off_freq) ** -1
         h *= (1 + 1j * p_dict['freq'] / 3e5) ** -1
         p_dict['EM'] *= h[:, None]
+
+    def get_point_str_line(self):
+        """
+        Вернуть строку с данными для сохранения в файл
+        :return:
+        """
+        data = [self.pr, self.pk, self.coordinate.x, self.coordinate.y, self.coordinate.z,
+                self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, self.current_ab,
+                self.loop_area, self.loop_height, self.src_pts, self.begin_time, self.end_time]
+        data.extend(self.observed_curve)
+        data.extend(self.weights)
+        s = [str(_) for _ in data]
+        return '\t'.join(s)

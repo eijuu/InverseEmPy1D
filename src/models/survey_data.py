@@ -15,10 +15,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from datetime import datetime
-import numpy as np
-import zipfile
 import json
+import zipfile
+from datetime import datetime
+
+import numpy as np
 
 from src import hampel_filter
 from src.utils import CoordinatePoint
@@ -26,12 +27,22 @@ from .point_sounding import PointSounding
 
 
 class SurveyData:
-    points: list[PointSounding] = []
-    current_index: int = -1
+    EXPECTED_HEADERS = {'profile': 'pr', 'picket': 'pk',
+                        'qx': 'x', 'qy': 'y', 'relief': 'z',
+                        'ax': 'ax', 'ay': 'ay', 'bx': 'bx', 'by': 'by',
+                        'current': 'i_a', 'observed': '1_du', 'weight': 'w_du',
+                        'loop_area': 'loop_area', 'loop_height': 'loop_height',
+                        'source_pts': 'src_pts', 'begin_time': 'begin_time', 'end_time': 'end_time'
+                        }
+
+    points: list[PointSounding]
+    current_index: int
 
     def __init__(self):
         self.times_str = None
         self.observed_data_str = None
+        self.points = []
+        self.current_index = -1
 
     @staticmethod
     def __load_emp_project(_path):
@@ -90,17 +101,32 @@ class SurveyData:
         """
         self.points: list[PointSounding] = []
         try:
+            expected_hdr = self.EXPECTED_HEADERS
+
             # читаем заголовки
             headers = observed_data[0].lower().split('\t')
 
             # Создаем словарь для быстрого доступа к индексам колонок
-            header_indices = {header: idx for idx, header in enumerate(headers)}
+            header_ind = {header: idx for idx, header in enumerate(headers)}
 
             # заполняем заголовки 1_dU.1 - 1_dU.n отдельно
             du_headers = []
             for header in headers:
-                if header.startswith('1_du.'):
+                if header.startswith(expected_hdr['observed']):
                     du_headers.append(header)
+
+            # заголовки весов если есть
+            w_headers = []
+            for header in headers:
+                if header.startswith(expected_hdr['weight']):
+                    w_headers.append(header)
+
+            # заголовки, которых сейчас может не быть (ver. 1.0.0.)
+            has_coefficient_weight = len(du_headers) == len(w_headers)
+            has_loop_area = expected_hdr['loop_area'] in headers
+            has_loop_height = expected_hdr['loop_height'] in headers
+            has_source_pts = expected_hdr['source_pts'] in headers
+            has_begin_end_time = expected_hdr['begin_time'] in headers
 
             del observed_data[0]
             # Читаем данные
@@ -110,49 +136,70 @@ class SurveyData:
                 if not line:
                     continue
 
-                data = line.split('\t')
+                line_data = line.split('\t')
 
                 # Создаем экземпляр PointSounding
-                point_sounding = PointSounding()
+                ps = PointSounding()
 
                 # Заполняем основные атрибуты
-                point_sounding.pr = int(data[header_indices['pr']])
-                if '_C' in data[header_indices['pk']]:  # пропуск контрольных
+                ps.pr = int(line_data[header_ind[expected_hdr['profile']]])
+                if '_C' in line_data[header_ind[expected_hdr['picket']]]:  # пропуск контрольных
                     continue
-                point_sounding.pk = int(data[header_indices['pk']])
+                ps.pk = int(line_data[header_ind[expected_hdr['picket']]])
 
                 # Создаем координатные точки
-                x = float(data[header_indices['x']])
-                y = float(data[header_indices['y']])
-                z = float(data[header_indices['z']])
-                point_sounding.coordinate = CoordinatePoint(x, y, z)
+                x = float(line_data[header_ind[expected_hdr['qx']]])
+                y = float(line_data[header_ind[expected_hdr['qy']]])
+                z = float(line_data[header_ind[expected_hdr['relief']]])
+                ps.coordinate = CoordinatePoint(x, y, z)
 
                 # Точка A (Ax, Ay)
-                ax = float(data[header_indices['ax']])
-                ay = float(data[header_indices['ay']])
-                point_sounding.point_a = CoordinatePoint(ax, ay)
+                ax = float(line_data[header_ind[expected_hdr['ax']]])
+                ay = float(line_data[header_ind[expected_hdr['ay']]])
+                ps.point_a = CoordinatePoint(ax, ay)
 
                 # Точка B (Bx, By)
-                bx = float(data[header_indices['bx']])
-                by = float(data[header_indices['by']])
-                point_sounding.point_b = CoordinatePoint(bx, by)
+                bx = float(line_data[header_ind[expected_hdr['bx']]])
+                by = float(line_data[header_ind[expected_hdr['by']]])
+                ps.point_b = CoordinatePoint(bx, by)
 
                 # координаты сдвинутые на A
-                point_sounding.coordinate_rel = CoordinatePoint(x - ax, y - ay, z)
-                point_sounding.point_a_rel = CoordinatePoint(0.0, 0.0, -0.5)
-                point_sounding.point_b_rel = CoordinatePoint(bx - ax, by - ay, -0.5)
+                ps.coordinate_rel = CoordinatePoint(x - ax, y - ay, z)
+                ps.point_a_rel = CoordinatePoint(0.0, 0.0, 0.0)
+                ps.point_b_rel = CoordinatePoint(bx - ax, by - ay, 0.0)
 
                 # Ток
-                point_sounding.current_ab = float(data[header_indices['i_a']])
+                ps.current_ab = float(line_data[header_ind[expected_hdr['current']]])
 
                 # Загружаем observed_curve из всех найденных колонок 1_dU
-                observed_curve = np.array(list(map(lambda h: data[header_indices[h]], du_headers)), dtype=np.float64)
-                point_sounding.observed_curve = np.squeeze(observed_curve)
+                observed_curve = np.array(list(map(lambda h: line_data[header_ind[h]], du_headers)), dtype=np.float64)
+                ps.observed_curve = np.squeeze(observed_curve)
 
                 # Задание стандартной модели
-                point_sounding.set_default_model()
+                ps.set_default_model()
+
+                # весовые коэффициенты
+                if has_coefficient_weight:
+                    weights = np.array(list(map(lambda h: line_data[header_ind[h]], w_headers)), dtype=np.float64)
+                    ps.weights = np.squeeze(weights)
+                else:
+                    ps.weights = np.array([1.0] * len(observed_curve), dtype=np.float64)
+
+                # площадь и высота датчика над поверхностью
+                ps.loop_area = float(line_data[header_ind[expected_hdr['loop_area']]]) if has_loop_area else 2500.0
+                ps.loop_height = float(line_data[header_ind[expected_hdr['loop_height']]]) if has_loop_height else 40.0
+                # кол-во ГЭД
+                ps.src_pts = int(line_data[header_ind[expected_hdr['source_pts']]]) if has_source_pts else 7
+                # обрезка времен
+                if has_begin_end_time:
+                    ps.begin_time = int(line_data[header_ind[expected_hdr['begin_time']]])
+                    ps.end_time = int(line_data[header_ind[expected_hdr['end_time']]])
+                else:
+                    ps.begin_time = 0
+                    ps.end_time = len(observed_curve) - 1
+
                 # Добавляем в список points
-                self.points.append(point_sounding)
+                self.points.append(ps)
 
             print(f'Загружено {len(self.points)} точек')
             return 1
@@ -178,34 +225,53 @@ class SurveyData:
         data = json.loads(project_settings)
 
         vci = data.get('vci', False)
-        loop_area = data.get('loop_area', 2500.0)
-        loop_height = data.get('loop_height', 40.0)
         use_robust = data.get('use_robust', False)
         ignore_negative_value = data.get('ignore_negative_value', False)
         alpha_coefficient = data.get('alpha_coefficient', 0.1)
 
         self.set_vci_flag(vci)
-        self.set_loop_area(loop_area)
-        self.set_height_fly(loop_height)
         self.set_use_robust_flag(use_robust)
         self.set_ignore_negative_value_flag(ignore_negative_value)
         self.set_alpha_coefficient(alpha_coefficient)
 
     def save_data(self, _path):
+        """
+        Сохранить данные в файл
+        :param _path:
+        :return:
+        """
         if self.points is None or len(self.points) == 0:
             return
-        s_res = ''
-        s_res += '\t'.join(['pr', 'pk', 'n_layer', 'rho', 'rho_min', 'rho_max', 'rho_fix',
-                            'h', 'h_min', 'h_max', 'h_fix', 'begin_time', 'end_time', 'srcpts']) + '\n'
-        for p in self.points:
-            s = p.get_str_model()
-            s_res += s + '\n'
+
+        # observed data
+        eh = self.EXPECTED_HEADERS
+        du_header = [eh['observed'] + f'.{i + 1}' for i in range(len(self.points[0].observed_curve))]
+        w_header = [eh['weight'] + f'.{i + 1}' for i in range(len(self.points[0].weights))]
+        header = [eh['profile'], eh['picket'], eh['qx'], eh['qy'], eh['relief'],
+                  eh['ax'], eh['ay'], eh['bx'], eh['by'], eh['current'],
+                  eh['loop_area'], eh['loop_height'], eh['source_pts'],
+                  eh['begin_time'], eh['end_time']
+                  ]
+        header.extend(du_header)
+        header.extend(w_header)
+        observed_str = '\t'.join(header) + '\n'
+        for point in self.points:
+            observed_str += point.get_point_str_line() + '\n'
+
+        # environment
+        environment_str = '\t'.join(['pr', 'pk', 'n_layer',
+                                     'rho', 'rho_min', 'rho_max', 'rho_fix',
+                                     'h', 'h_min', 'h_max', 'h_fix']) + '\n'
+        for point in self.points:
+            s = point.get_str_model()
+            environment_str += s + '\n'
+
         try:
             with zipfile.ZipFile(_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 # Добавляем файлы в архив
-                zip_file.writestr('observed_data.txt', self.observed_data_str)
+                zip_file.writestr('observed_data.txt', observed_str)
                 zip_file.writestr('times.txt', self.times_str)
-                zip_file.writestr('models.txt', s_res)
+                zip_file.writestr('models.txt', environment_str)
                 zip_file.writestr('project_settings.txt', self.create_json_project_settings())
                 meta_info = f"Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\nFile count: 3"
                 zip_file.writestr('meta.info', meta_info)
@@ -219,8 +285,6 @@ class SurveyData:
             return None
         data = {
             'vci': self.points[0].vci,
-            'loop_area': self.points[0].loop_area,
-            'loop_height': self.points[0].loop_height,
             'use_robust': self.points[0].use_robust,
             'ignore_negative_value': self.points[0].ignore_negative_value,
             'alpha_coefficient': self.points[0].alpha_coefficient_tikhonov
@@ -244,9 +308,7 @@ class SurveyData:
             h_min = []
             h_max = []
             h_fix = []
-            begin_time = 0
-            end_time = 0
-            srcpts = 7
+
             for i in range(counter, len(models)):
                 line = models[i].strip().split('\t')
                 pr = int(line[0])
@@ -257,10 +319,7 @@ class SurveyData:
                     rho_max.append(float(line[5]))
                     rho_fix.append(line[6] == 'True')
                     h_value = float(line[7])
-                    begin_time = int(line[11])
-                    end_time = int(line[12])
-                    if len(line) > 13:
-                        srcpts = int(line[13])
+
                     if h_value != 0.0:
                         h.append(h_value)
                         h_min.append(float(line[8]))
@@ -269,9 +328,7 @@ class SurveyData:
                     else:
                         counter = i - 1
                         break
-            self.points[index].begin_time = begin_time
-            self.points[index].end_time = end_time
-            self.points[index].src_pts = srcpts
+
             self.points[index].model_environment.rho_value = np.log(np.array(rho, dtype=np.float32))
             self.points[index].model_environment.rho_value_min = np.log(np.array(rho_min, dtype=np.float32))
             self.points[index].model_environment.rho_value_max = np.log(np.array(rho_max, dtype=np.float32))
@@ -718,6 +775,13 @@ class SurveyData:
                 p.src_pts = scrpts
 
     def export_model_by_pr_to_text(self, _path_to_save: str, _profiles_for_export: list[int], _reversed=False):
+        """
+        Выгрузка в txt формате
+        :param _path_to_save:
+        :param _profiles_for_export:
+        :param _reversed:
+        :return:
+        """
         if self.points is None or len(self.points) == 0:
             return
 
