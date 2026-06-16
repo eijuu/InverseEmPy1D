@@ -128,6 +128,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.cross_section_min_value_colorbar = 0
         self.cross_section_max_value_colorbar = 0
         self.cross_section_auto_value_color_bar = True
+        self.cross_section_color_palette = 'jet'
         # диапазон шкалы z
         self.cross_section_min_value_altitude = 0
         self.cross_section_max_value_altitude = 0
@@ -338,7 +339,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
 
         self.cross_section_min_value_colorbar, self.cross_section_max_value_colorbar = v_min, v_max
 
-        cmap = cm.get_cmap('jet')
+        cmap = cm.get_cmap(self.cross_section_color_palette)
 
         mesh = self.crossSectionPlot.ax.pcolormesh(X, Z, rho_by_every_meter_2d,
                                                    norm=LogNorm(v_min, v_max, True), shading='nearest', cmap=cmap)
@@ -430,7 +431,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
             else:
                 v_min = self.cross_section_min_value_colorbar
                 v_max = self.cross_section_max_value_colorbar
-            cmap = cm.get_cmap('jet')
+            cmap = cm.get_cmap(self.cross_section_color_palette)
             mesh = self.mapPlot.ax.pcolormesh(Xi, Yi, rho_grid,
                                               norm=LogNorm(vmin=v_min, vmax=v_max),
                                               shading='nearest', cmap=cmap)
@@ -514,7 +515,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
             self.tableModel.setItem(i, 1, q_item)
 
         z = np.insert(np.cumsum(h), 0, 0.0)
-        for i in range(len(h)):
+        for i in range(len(z)):
             q_item = QTableWidgetItem(f'{z[i]:.2f}')
             self.tableModel.setItem(i, 2, q_item)
 
@@ -680,3 +681,4 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.tablePickets.setColumnHidden(5, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
         self.tablePickets.setColumnHidden(6, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
         self.tablePickets.setColumnHidden(7, not self.checkBoxTablePicketsAdvanceColumnView.isChecked())
+

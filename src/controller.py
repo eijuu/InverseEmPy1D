@@ -22,7 +22,7 @@ from datetime import datetime
 from multiprocessing import Pool
 
 import numpy as np
-from PyQt6.QtWidgets import QTableWidgetItem, QApplication, QInputDialog, QMessageBox
+from PyQt6.QtWidgets import QTableWidgetItem, QApplication, QInputDialog, QMessageBox, QErrorMessage
 from scipy.optimize import minimize
 
 import utils
@@ -254,6 +254,8 @@ class MainController:
         self.view.actionAuto_fitting_srcpts.triggered.connect(self.auto_fitting_srcpts_process)
 
         self.view.actionTurn_off_0_01_ms.triggered.connect(self.turn_off_dialog)
+
+        self.view.actionColorMap.triggered.connect(self.colormap_dialog)
 
     def load_data(self):
         """
@@ -1126,12 +1128,30 @@ class MainController:
             return
         current_value = self.model.current_point().turn_off
         value, ok_pressed = QInputDialog.getDouble(None, 'turn off', 'Input turn off value in ms:',
-                                                                     value=current_value, min=0.01, max=10, decimals=2, step=0.01)
+                                                   value=current_value, min=0.01, max=10,
+                                                   decimals=2, step=0.01)
         if not ok_pressed:
             return
         self.set_turn_off(value)
         self.view.fill_turn_off_menu(value)
         print('Completed')
+
+    def colormap_dialog(self):
+        if self.model.points is None:
+            return
+        value, ok_pressed = QInputDialog.getText(None, 'Colormap', 'Input colormap name in cm:',
+                                                 text=self.view.cross_section_color_palette)
+        if not ok_pressed:
+            return
+        try:
+            from matplotlib import cm
+            cmap = cm.get_cmap(value)
+            print(f'Палитра \'{value}\' существует')
+            self.view.cross_section_color_palette = value
+            self.cross_section_plot()
+        except ValueError:
+            QMessageBox.information(None, 'Info', f'{value} palette not found')
+
 
     def on_map_vertical_slider_moved(self):
         self.view.lblCurrentDepth.setText(f'{self.view.verticalSliderMap.value()}')

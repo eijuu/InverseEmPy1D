@@ -563,6 +563,8 @@ class Ui_MainWindow(object):
         self.actionExport_results_to_text_dat.setObjectName("actionExport_results_to_text_dat")
         self.actionExport_results_by_horizontal_slice_to_text_dat = QtGui.QAction(parent=MainWindow)
         self.actionExport_results_by_horizontal_slice_to_text_dat.setObjectName("actionExport_results_by_horizontal_slice_to_text_dat")
+        self.actionColorMap = QtGui.QAction(parent=MainWindow)
+        self.actionColorMap.setObjectName("actionColorMap")
         self.menuFile.addAction(self.actionLoad_data_2)
         self.menuFile.addAction(self.actionSave_data_2)
         self.menuFile.addSeparator()
@@ -575,6 +577,7 @@ class Ui_MainWindow(object):
         self.menuOptions.addAction(self.actionSrcpts)
         self.menuOptions.addAction(self.actionAuto_fitting_srcpts)
         self.menuOptions.addAction(self.actionTurn_off_0_01_ms)
+        self.menuOptions.addAction(self.actionColorMap)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
 
@@ -681,3 +684,4 @@ class Ui_MainWindow(object):
         self.actionTurn_off_0_01_ms.setText(_translate("MainWindow", "turn_off: 0.01 ms"))
         self.actionExport_results_to_text_dat.setText(_translate("MainWindow", "Export results by PR to text (*.dat)"))
         self.actionExport_results_by_horizontal_slice_to_text_dat.setText(_translate("MainWindow", "Export results by horizontal slice to text (*.dat)"))
+        self.actionColorMap.setText(_translate("MainWindow", "colormap"))

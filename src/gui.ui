@@ -1138,6 +1138,7 @@
     <addaction name="actionSrcpts"/>
     <addaction name="actionAuto_fitting_srcpts"/>
     <addaction name="actionTurn_off_0_01_ms"/>
+    <addaction name="actionColorMap"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
@@ -1384,6 +1385,11 @@
   <action name="actionExport_results_by_horizontal_slice_to_text_dat">
    <property name="text">
     <string>Export results by horizontal slice to text (*.dat)</string>
+   </property>
+  </action>
+  <action name="actionColorMap">
+   <property name="text">
+    <string>colormap</string>
    </property>
   </action>
  </widget>
