@@ -307,22 +307,20 @@ class MainController:
         # получение списка пикетов из текущего профиля
         pickets_list = self.model.get_picket_list(current_profile)
         # заполнение
-        error_list = [0.0] * len(pickets_list)
-        area_list = [0.0] * len(pickets_list)
-        height_list = [0.0] * len(pickets_list)
-        src_pts_list = [0] * len(pickets_list)
-        begin_time_list = [0] * len(pickets_list)
-        end_time_list = [0] * len(pickets_list)
-        for i in range(len(error_list)):
-            p = self.model.get_point(current_profile, pickets_list[i])
-            error_list[i] = p.error_value * 100
-            area_list[i] = p.loop_area
-            height_list[i] = p.loop_height
-            src_pts_list[i] = p.src_pts
-            begin_time_list[i] = p.begin_time
-            end_time_list[i] = p.end_time
+        dict_list_data = []
+        for pk in pickets_list:
+            p = self.model.get_point(current_profile, pk)
+            dict_list_data.append({
+                'pk': p.pk,
+                'error': p.error_value * 100,
+                'area': p.loop_area,
+                'height': p.loop_height,
+                'src_pts': p.src_pts,
+                'begin_time': p.begin_time,
+                'end_time': p.end_time
+            })
         # заполняем таблицу пикетов
-        self.view.fill_table_pickets(pickets_list, error_list, area_list, height_list, src_pts_list, begin_time_list, end_time_list)
+        self.view.fill_table_pickets(dict_list_data)
         # отрисуем разрез текущего профиля
         self.cross_section_plot()
         # карта

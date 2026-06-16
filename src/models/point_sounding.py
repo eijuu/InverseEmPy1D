@@ -18,7 +18,7 @@
 import empymod
 import numpy as np
 
-from src import hampel_filter
+from src import hampel_filter, utils
 from src.utils import CoordinatePoint
 from .model_environment import ModelEnvironment
 
@@ -290,10 +290,12 @@ class PointSounding:
         self.end_time = end
 
     def set_begin_index_times(self, begin: int):
-        self.begin_time = begin
+        if 0 <= begin < len(self.times) and begin < self.end_time:
+            self.begin_time = begin
 
     def set_end_index_times(self, end: int):
-        self.end_time = end
+        if 1 <= end < len(self.times) and end > self.begin_time:
+            self.end_time = end
 
     def auto_fitting_srcpts(self, default_value=11, err=0.05):
         max_srcpts = 50

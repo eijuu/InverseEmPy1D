@@ -420,7 +420,7 @@ class SurveyData:
         ab = list(set(ab_coordinate))
         return ab
 
-    def get_pr_pk_list(self):
+    def get_pr_pk_str_list(self):
         if self.points is None or len(self.points) == 0:
             return None
         res = [tuple([p.pr, p.pk]) for p in self.points]

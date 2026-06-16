@@ -252,22 +252,24 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.comboBoxSelectProfile.clear()
         self.comboBoxSelectProfile.addItems(profile_list)
 
-    def fill_table_pickets(self, pickets_list: list, error_list: list, area_list: list, height_list: list,
-                           src_pts_list: list,
-                           begin_time_list: list,
-                           end_time_list: list) -> None:
+    def fill_table_pickets(self, data: list) -> None:
+        """
+        Заполнение таблицы с пикетами
+        :param data: лист из словарей
+        :return:
+        """
         self.tablePickets.clearContents()
         self.tablePickets.setRowCount(0)
-        self.tablePickets.setRowCount(len(pickets_list))
-        for i in range(len(pickets_list)):
-            self.tablePickets.setItem(i, 0, QTableWidgetItem(str(pickets_list[i])))
-            self.tablePickets.setItem(i, 1, QTableWidgetItem(f'{error_list[i]:.2f}'))
+        self.tablePickets.setRowCount(len(data))
+        for i, res in enumerate(data):
+            self.tablePickets.setItem(i, 0, QTableWidgetItem(f'{res['pk']:d}'))
+            self.tablePickets.setItem(i, 1, QTableWidgetItem(f'{res['error']:.2f}'))
             self.tablePickets.setItem(i, 2, QTableWidgetItem('Ready'))
-            self.tablePickets.setItem(i, 3, QTableWidgetItem(f'{area_list[i]:.2f}'))
-            self.tablePickets.setItem(i, 4, QTableWidgetItem(f'{height_list[i]:.2f}'))
-            self.tablePickets.setItem(i, 5, QTableWidgetItem(f'{src_pts_list[i]:d}'))
-            self.tablePickets.setItem(i, 6, QTableWidgetItem(f'{begin_time_list[i]:d}'))
-            self.tablePickets.setItem(i, 7, QTableWidgetItem(f'{end_time_list[i]:d}'))
+            self.tablePickets.setItem(i, 3, QTableWidgetItem(f'{res['area']:.2f}'))
+            self.tablePickets.setItem(i, 4, QTableWidgetItem(f'{res['height']:.2f}'))
+            self.tablePickets.setItem(i, 5, QTableWidgetItem(f'{res['src_pts']:d}'))
+            self.tablePickets.setItem(i, 6, QTableWidgetItem(f'{res['begin_time']:d}'))
+            self.tablePickets.setItem(i, 7, QTableWidgetItem(f'{res['end_time']:d}'))
         self.tablePickets.resizeColumnsToContents()
 
     def get_selected_profile(self):
