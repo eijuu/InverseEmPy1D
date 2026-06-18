@@ -235,6 +235,8 @@ class MainController:
         self.view.checkBoxVCI.clicked.connect(self.set_vci_value)
         self.view.checkBoxTablePicketsAdvanceColumnView.clicked.connect(self.checkbox_table_picket_advance_column_view_check)
 
+        self.view.check_box_curves_plot_log_y.clicked.connect(self.checkbox_curves_plot_log_y_check)
+
         # карта
         self.view.tab_widget.currentChanged.connect(self.tab_widget_page_change)
         self.view.btnDrawMap.clicked.connect(self.map_plot)
@@ -1086,7 +1088,7 @@ class MainController:
         if self.model.points is None:
             return
         default_value = 7
-        reply = QMessageBox.question(self.view, 'Auto fitting srcpts',
+        reply = QMessageBox.question(self.view.centralwidget, 'Auto fitting srcpts',
                                      'Are you sure you want to automatically fit srcpts?',
                                      QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                                      QMessageBox.StandardButton.No)
@@ -1203,3 +1205,11 @@ class MainController:
 
     def checkbox_table_picket_advance_column_view_check(self):
         self.view.table_picket_hidden_column()
+
+    def checkbox_curves_plot_log_y_check(self):
+        """
+        Лог или симлог по оси Y на графиках
+        :return:
+        """
+        self.view.curves_plot_log_y = self.view.check_box_curves_plot_log_y.isChecked()
+        self.curves_plot()

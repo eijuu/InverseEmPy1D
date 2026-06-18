@@ -145,6 +145,10 @@ class MainGui(QMainWindow, Ui_MainWindow):
         label_curve.setMaximumHeight(14)
         label_curve.setText('Curves')
         self.layoutGraphics.addWidget(label_curve)
+        self.check_box_curves_plot_log_y = QCheckBox()
+        self.check_box_curves_plot_log_y.setText('Log Y')
+        self.check_box_curves_plot_log_y.setChecked(True)
+        self.layoutGraphics.addWidget(self.check_box_curves_plot_log_y)
         self.curvesPlot = MplWidget()
         self.curvesPlot.ax = self.curvesPlot.figure.add_subplot(111)
         self.curvesPlot.ax.set_xlabel('Times, ms')
@@ -152,6 +156,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.curvesPlot.figure.tight_layout()
         self.layoutGraphics.addWidget(NavigationToolbar(self.curvesPlot.canvas, self))
         self.layoutGraphics.addWidget(self.curvesPlot)
+        self.curves_plot_log_y = self.check_box_curves_plot_log_y.isChecked()
 
         # Таб 2
         # карта
@@ -187,49 +192,49 @@ class MainGui(QMainWindow, Ui_MainWindow):
         self.spinBoxMaxIteration.setMaximum(500)
 
     def open_file_dialog(self, _title='Выберите файл', _filter='Все файлы (*)') -> str:
-        file_path, _ = QFileDialog.getOpenFileName(self, _title, '', _filter)
+        file_path, _ = QFileDialog.getOpenFileName(self.centralwidget, _title, '', _filter)
         return file_path
 
     def save_file_dialog(self, _title='Выберите файл', _filter='Все файлы (*)') -> str:
-        file_path, _ = QFileDialog.getSaveFileName(self, _title, '', _filter)
+        file_path, _ = QFileDialog.getSaveFileName(self.centralwidget, _title, '', _filter)
         return file_path
 
     def show_error(self, message):
-        QMessageBox.critical(self, 'Ошибка', message)
+        QMessageBox.critical(self.centralwidget, 'Ошибка', message)
 
     def show_information(self, message):
-        QMessageBox.information(self, 'Information', message)
+        QMessageBox.information(self.centralwidget, 'Information', message)
 
     def show_question_yes_no(self, title, question):
-        ans = QMessageBox.question(self, title, question)
+        ans = QMessageBox.question(self.centralwidget, title, question)
         if ans == QMessageBox.StandardButton.Yes:
             return True
         else:
             return False
 
     def show_select_profiles(self, profiles, title='Select profiles', all_checked=True):
-        dialog = ProfileSelectionDialog(self, title, profiles, all_checked)
+        dialog = ProfileSelectionDialog(self.centralwidget, title, profiles, all_checked)
         result = dialog.exec()
         if result == QMessageBox.DialogCode.Accepted:
             return dialog.selected_profile
         return []
 
     def show_alpha_coefficient_input(self, default_value: float = 0.010):
-        dialog = InputDoubleDialog(self, 'Input alpha coefficient', default_value)
+        dialog = InputDoubleDialog(self.centralwidget, 'Input alpha coefficient', default_value)
         result = dialog.exec()
         if result == QMessageBox.DialogCode.Accepted:
             return dialog.double_value
         return None
 
     def show_srcpts_input(self, default_value: int = 7):
-        dialog = InputIntegerDialog(self, 'Input scrpts', default_value)
+        dialog = InputIntegerDialog(self.centralwidget, 'Input scrpts', default_value)
         result = dialog.exec()
         if result == QMessageBox.DialogCode.Accepted:
             return dialog.integer_value
         return None
 
     def show_select_filters(self, h_filters, f_filters, selected_filters):
-        dialog = FiltersSelectionDialogs(self, 'Select filters', h_filters, f_filters, selected_filters)
+        dialog = FiltersSelectionDialogs(self.centralwidget, 'Select filters', h_filters, f_filters, selected_filters)
         result = dialog.exec()
         if result == QMessageBox.DialogCode.Accepted:
             self.lblHtArg.setText(f'Hankel: {dialog.selected_filters[0]}')
@@ -284,26 +289,39 @@ class MainGui(QMainWindow, Ui_MainWindow):
         times = times * 1000  # s -> ms
 
         self.curvesPlot.ax.clear()
+        if self.curves_plot_log_y:
+            # Логарифмический масштаб
+            if observed is not None:
+                t1, c1, t2, c2 = utils.separate_curve_pos_neg(times, observed)
+                self.curvesPlot.ax.loglog(t1, c1 * 1000, 'b^', alpha=0.1)
+                self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'bv', alpha=0.1)
+                if begin_time != end_time:
+                    t1, c1, t2, c2 = utils.separate_curve_pos_neg(times[begin_time: end_time + 1],
+                                                                  observed[begin_time: end_time + 1])
+                    self.curvesPlot.ax.loglog(t1, c1 * 1000, 'b^', label='Obs (+)')
+                    self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'bv', label='Obs (-)')
 
-        if observed is not None:
-            t1, c1, t2, c2 = utils.separate_curve_pos_neg(times, observed)
-            self.curvesPlot.ax.loglog(t1, c1 * 1000, 'b^', alpha=0.1)
-            self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'bv', alpha=0.1)
-            if begin_time != end_time:
-                t1, c1, t2, c2 = utils.separate_curve_pos_neg(times[begin_time: end_time + 1],
-                                                              observed[begin_time: end_time + 1])
-                self.curvesPlot.ax.loglog(t1, c1 * 1000, 'b^', label='Obs (+)')
-                self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'bv', label='Obs (-)')
-
-        if theoretical is not None and len(theoretical) != 0:
-            t1, c1, t2, c2 = utils.separate_curve_pos_neg(times, theoretical)
-            self.curvesPlot.ax.loglog(t1, c1 * 1000, 'r^--', alpha=0.2)
-            self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'rv--', alpha=0.2)
-            if begin_time != end_time:
-                t1, c1, t2, c2 = utils.separate_curve_pos_neg(times[begin_time: end_time + 1],
-                                                              theoretical[begin_time: end_time + 1])
-                self.curvesPlot.ax.loglog(t1, c1 * 1000, 'r^--', label='Theor (+)')
-                self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'rv--', label='Theor (-)')
+            if theoretical is not None and len(theoretical) != 0:
+                t1, c1, t2, c2 = utils.separate_curve_pos_neg(times, theoretical)
+                self.curvesPlot.ax.loglog(t1, c1 * 1000, 'r^--', alpha=0.2)
+                self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'rv--', alpha=0.2)
+                if begin_time != end_time:
+                    t1, c1, t2, c2 = utils.separate_curve_pos_neg(times[begin_time: end_time + 1],
+                                                                  theoretical[begin_time: end_time + 1])
+                    self.curvesPlot.ax.loglog(t1, c1 * 1000, 'r^--', label='Theor (+)')
+                    self.curvesPlot.ax.loglog(t2, abs(c2) * 1000, 'rv--', label='Theor (-)')
+        else:
+            # псевдологарифмический масштаб
+            if observed is not None:
+                self.curvesPlot.ax.plot(times, observed * 1000, 'bo', alpha=0.1)
+                if begin_time != end_time:
+                    self.curvesPlot.ax.plot(times, observed * 1000, 'bo', label='Obs')
+            if theoretical is not None and len(theoretical) != 0:
+                self.curvesPlot.ax.plot(times, theoretical * 1000, 'ro--', alpha=0.2, mfc='white')
+                if begin_time != end_time:
+                    self.curvesPlot.ax.plot(times, theoretical * 1000, 'ro--', label='Theor', mfc='white')
+            self.curvesPlot.ax.set_xscale('log')
+            self.curvesPlot.ax.set_yscale('symlog', linthresh=0.015)
 
         self.curvesPlot.ax.set_title(f'RMSRE is {err:.2f}%')
         self.curvesPlot.ax.grid()
@@ -632,7 +650,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
                       self.cross_section_min_value_colorbar, self.cross_section_max_value_colorbar,
                       self.cross_section_min_value_altitude, self.cross_section_max_value_altitude,
                       self.cross_section_reversed, self.cross_section_error_view, self.cross_section_pk_label_view)
-        dialog = CrossSectionSettingsDialog(self, init_value)
+        dialog = CrossSectionSettingsDialog(self.centralwidget, init_value)
         if dialog.exec() == QDialog.DialogCode.Accepted:
             result = dialog.get_values()
             self.cross_section_auto_value_color_bar = result[0]
@@ -660,7 +678,7 @@ class MainGui(QMainWindow, Ui_MainWindow):
         init_value = (self.cross_section_auto_value_color_bar, self.map_section_is_relative_depths,
                       self.cross_section_min_value_colorbar, self.cross_section_max_value_colorbar,
                       self.map_section_is_view_pickets_label)
-        dialog = MapSectionSettingsDialog(self, init_value)
+        dialog = MapSectionSettingsDialog(self.centralwidget, init_value)
         if dialog.exec() == QDialog.DialogCode.Accepted:
             result = dialog.get_values()
             self.cross_section_auto_value_color_bar = result[0]
