@@ -40,7 +40,7 @@
            </size>
           </property>
           <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
+           <enum>Qt::LayoutDirection::LeftToRight</enum>
           </property>
           <property name="text">
            <string>Load data</string>
@@ -167,13 +167,13 @@
          </size>
         </property>
         <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
+         <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
         </property>
         <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectRows</enum>
+         <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
         </property>
         <property name="textElideMode">
-         <enum>Qt::ElideRight</enum>
+         <enum>Qt::TextElideMode::ElideRight</enum>
         </property>
        </widget>
       </item>
@@ -513,7 +513,6 @@
           <property name="font">
            <font>
             <family>Arial</family>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -521,7 +520,7 @@
            <string>Proccess</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -633,7 +632,7 @@
         <item>
          <layout class="QHBoxLayout" name="layoutProfileButtons">
           <property name="sizeConstraint">
-           <enum>QLayout::SetMinimumSize</enum>
+           <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
           </property>
           <item>
            <widget class="QPushButton" name="btnSmoothModelThickness">
@@ -714,7 +713,7 @@
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -769,7 +768,7 @@
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -786,12 +785,12 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="sizeConstraint">
-             <enum>QLayout::SetMinimumSize</enum>
+             <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
             </property>
             <item>
              <widget class="QSlider" name="verticalSliderMap">
               <property name="orientation">
-               <enum>Qt::Vertical</enum>
+               <enum>Qt::Orientation::Vertical</enum>
               </property>
              </widget>
             </item>
@@ -807,7 +806,7 @@
           <item>
            <layout class="QVBoxLayout" name="layoutMapGraphics">
             <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
+             <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
             </property>
            </layout>
           </item>
@@ -823,7 +822,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <property name="sizeConstraint">
-           <enum>QLayout::SetMinimumSize</enum>
+           <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
           </property>
           <item>
            <widget class="QPushButton" name="pushButton_2">
@@ -842,10 +841,10 @@
           <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Expanding</enum>
+             <enum>QSizePolicy::Policy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -928,7 +927,7 @@
          <item row="2" column="2">
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -1114,7 +1113,7 @@
      <x>0</x>
      <y>0</y>
      <width>1746</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

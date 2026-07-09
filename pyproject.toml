@@ -1,21 +1,23 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
 [project]
 name = "InverseEmPy1D"
-version = "1.0.0"
-description = "1D inverse modeling for semi-airborne UAV-TEM data using empymod and PyQt6"
+version = "1.0.3"
+description = "1D inverse modeling for semi-airborne UAV-TEM data using empymod and PySide6"
 authors = [
     {name = "Bashkeev A.S.",email = "abashkeev@geo.istu.edu"}
 ]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = "3.14"
+requires-python = "3.14.0"
 dependencies = [
+    "empymod==2.6.0",
     "numpy==2.4.6",
     "scipy==1.17.1",
-    "empymod==2.6.0",
     "matplotlib==3.10.9",
-    "PyQt6==6.11.0",
+    "PySide6==6.11.1",
 ]
 
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+
