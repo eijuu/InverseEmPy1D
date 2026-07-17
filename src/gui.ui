@@ -46,8 +46,7 @@
            <string>Load data</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/file_open_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/file_open_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           <iconset theme="document-open"/>
           </property>
          </widget>
         </item>
@@ -69,8 +68,7 @@
            <string>Save data</string>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+           <iconset theme="document-save"/>
           </property>
          </widget>
         </item>
@@ -279,10 +277,6 @@
           <property name="text">
            <string>Direct</string>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/bolt_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/bolt_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
          </widget>
         </item>
         <item row="11" column="2">
@@ -311,10 +305,6 @@
           </property>
           <property name="text">
            <string>Plot Cross-Section</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
           </property>
          </widget>
         </item>
@@ -450,10 +440,6 @@
           <property name="text">
            <string>Inverse</string>
           </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/rocket_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-          </property>
          </widget>
         </item>
         <item row="9" column="0">
@@ -495,10 +481,6 @@
           </property>
           <property name="text">
            <string>Multi Inverse</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
           </property>
          </widget>
         </item>
@@ -651,10 +633,6 @@
             <property name="text">
              <string>Smooth h</string>
             </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>C:/Users/user/.designer/backup/icons/waves_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/waves_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-            </property>
            </widget>
           </item>
           <item>
@@ -674,10 +652,6 @@
             <property name="text">
              <string>Smooth rho</string>
             </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>C:/Users/user/.designer/backup/icons/transition_fade_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/transition_fade_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
-            </property>
            </widget>
           </item>
           <item>
@@ -696,10 +670,6 @@
             </property>
             <property name="text">
              <string>Smooth both</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>C:/Users/user/.designer/backup/icons/landscape_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/landscape_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
             </property>
            </widget>
           </item>
@@ -955,8 +925,7 @@
             <string>Add</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>C:/Users/user/.designer/backup/icons/add_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/add_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            <iconset theme="list-add"/>
            </property>
           </widget>
          </item>
@@ -978,8 +947,7 @@
             <string>Delete</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>C:/Users/user/.designer/backup/icons/delete_forever_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/delete_forever_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            <iconset theme="list-remove"/>
            </property>
           </widget>
          </item>
@@ -1001,8 +969,7 @@
             <string>Copy</string>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>C:/Users/user/.designer/backup/icons/content_copy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</normaloff>C:/Users/user/.designer/backup/icons/content_copy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</iconset>
+            <iconset theme="edit-copy"/>
            </property>
           </widget>
          </item>
@@ -1041,6 +1008,9 @@
            </property>
            <property name="text">
             <string>Paste</string>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-paste"/>
            </property>
           </widget>
          </item>

@@ -142,8 +142,7 @@ class Ui_MainWindow(object):
         self.btnLoad.setMinimumSize(QSize(116, 0))
         self.btnLoad.setMaximumSize(QSize(116, 16777215))
         self.btnLoad.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        icon = QIcon()
-        icon.addFile(u"C:/Users/user/.designer/backup/icons/file_open_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon = QIcon(QIcon.fromTheme(u"document-open"))
         self.btnLoad.setIcon(icon)
 
         self.gridLayout_6.addWidget(self.btnLoad, 0, 1, 1, 1)
@@ -152,8 +151,7 @@ class Ui_MainWindow(object):
         self.btnSaveData.setObjectName(u"btnSaveData")
         self.btnSaveData.setMinimumSize(QSize(116, 0))
         self.btnSaveData.setMaximumSize(QSize(116, 16777215))
-        icon1 = QIcon()
-        icon1.addFile(u"C:/Users/user/.designer/backup/icons/save_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1 = QIcon(QIcon.fromTheme(u"document-save"))
         self.btnSaveData.setIcon(icon1)
 
         self.gridLayout_6.addWidget(self.btnSaveData, 1, 1, 1, 1)
@@ -258,9 +256,6 @@ class Ui_MainWindow(object):
         self.btnDirectProblem.setMinimumSize(QSize(120, 0))
         self.btnDirectProblem.setMaximumSize(QSize(80, 16777215))
         self.btnDirectProblem.setBaseSize(QSize(0, 0))
-        icon2 = QIcon()
-        icon2.addFile(u"C:/Users/user/.designer/backup/icons/bolt_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnDirectProblem.setIcon(icon2)
 
         self.gridLayout_2.addWidget(self.btnDirectProblem, 8, 0, 1, 1)
 
@@ -274,9 +269,6 @@ class Ui_MainWindow(object):
         self.btnPlotCrossSection.setObjectName(u"btnPlotCrossSection")
         self.btnPlotCrossSection.setMinimumSize(QSize(120, 0))
         self.btnPlotCrossSection.setMaximumSize(QSize(120, 16777215))
-        icon3 = QIcon()
-        icon3.addFile(u"C:/Users/user/.designer/backup/icons/brush_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnPlotCrossSection.setIcon(icon3)
 
         self.gridLayout_2.addWidget(self.btnPlotCrossSection, 13, 2, 1, 1)
 
@@ -334,9 +326,6 @@ class Ui_MainWindow(object):
         self.btnInverseProblem.setObjectName(u"btnInverseProblem")
         self.btnInverseProblem.setMinimumSize(QSize(120, 0))
         self.btnInverseProblem.setMaximumSize(QSize(80, 16777215))
-        icon4 = QIcon()
-        icon4.addFile(u"C:/Users/user/.designer/backup/icons/rocket_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnInverseProblem.setIcon(icon4)
 
         self.gridLayout_2.addWidget(self.btnInverseProblem, 12, 0, 1, 1)
 
@@ -356,9 +345,6 @@ class Ui_MainWindow(object):
         self.btnInverseProblemMulti = QPushButton(self.centralwidget)
         self.btnInverseProblemMulti.setObjectName(u"btnInverseProblemMulti")
         self.btnInverseProblemMulti.setMaximumSize(QSize(120, 16777215))
-        icon5 = QIcon()
-        icon5.addFile(u"C:/Users/user/.designer/backup/icons/rocket_launch_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnInverseProblemMulti.setIcon(icon5)
 
         self.gridLayout_2.addWidget(self.btnInverseProblemMulti, 12, 1, 1, 1)
 
@@ -453,9 +439,6 @@ class Ui_MainWindow(object):
         self.btnSmoothModelThickness.setObjectName(u"btnSmoothModelThickness")
         self.btnSmoothModelThickness.setMinimumSize(QSize(116, 0))
         self.btnSmoothModelThickness.setMaximumSize(QSize(116, 16777215))
-        icon6 = QIcon()
-        icon6.addFile(u"C:/Users/user/.designer/backup/icons/waves_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnSmoothModelThickness.setIcon(icon6)
 
         self.layoutProfileButtons.addWidget(self.btnSmoothModelThickness)
 
@@ -463,9 +446,6 @@ class Ui_MainWindow(object):
         self.btnSmoothModelRho.setObjectName(u"btnSmoothModelRho")
         self.btnSmoothModelRho.setMinimumSize(QSize(116, 0))
         self.btnSmoothModelRho.setMaximumSize(QSize(116, 16777215))
-        icon7 = QIcon()
-        icon7.addFile(u"C:/Users/user/.designer/backup/icons/transition_fade_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnSmoothModelRho.setIcon(icon7)
 
         self.layoutProfileButtons.addWidget(self.btnSmoothModelRho)
 
@@ -473,9 +453,6 @@ class Ui_MainWindow(object):
         self.btnSmoothModelBoth.setObjectName(u"btnSmoothModelBoth")
         self.btnSmoothModelBoth.setMinimumSize(QSize(116, 0))
         self.btnSmoothModelBoth.setMaximumSize(QSize(116, 16777215))
-        icon8 = QIcon()
-        icon8.addFile(u"C:/Users/user/.designer/backup/icons/landscape_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnSmoothModelBoth.setIcon(icon8)
 
         self.layoutProfileButtons.addWidget(self.btnSmoothModelBoth)
 
@@ -638,9 +615,8 @@ class Ui_MainWindow(object):
         self.btnAddLayer.setObjectName(u"btnAddLayer")
         self.btnAddLayer.setMinimumSize(QSize(116, 0))
         self.btnAddLayer.setMaximumSize(QSize(116, 16777215))
-        icon9 = QIcon()
-        icon9.addFile(u"C:/Users/user/.designer/backup/icons/add_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnAddLayer.setIcon(icon9)
+        icon2 = QIcon(QIcon.fromTheme(u"list-add"))
+        self.btnAddLayer.setIcon(icon2)
 
         self.gridLayout.addWidget(self.btnAddLayer, 0, 0, 1, 1)
 
@@ -648,9 +624,8 @@ class Ui_MainWindow(object):
         self.btnDeleteLayer.setObjectName(u"btnDeleteLayer")
         self.btnDeleteLayer.setMinimumSize(QSize(116, 0))
         self.btnDeleteLayer.setMaximumSize(QSize(116, 16777215))
-        icon10 = QIcon()
-        icon10.addFile(u"C:/Users/user/.designer/backup/icons/delete_forever_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnDeleteLayer.setIcon(icon10)
+        icon3 = QIcon(QIcon.fromTheme(u"list-remove"))
+        self.btnDeleteLayer.setIcon(icon3)
 
         self.gridLayout.addWidget(self.btnDeleteLayer, 0, 1, 1, 1)
 
@@ -658,9 +633,8 @@ class Ui_MainWindow(object):
         self.btnCopyModel.setObjectName(u"btnCopyModel")
         self.btnCopyModel.setMinimumSize(QSize(116, 0))
         self.btnCopyModel.setMaximumSize(QSize(116, 16777215))
-        icon11 = QIcon()
-        icon11.addFile(u"C:/Users/user/.designer/backup/icons/content_copy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnCopyModel.setIcon(icon11)
+        icon4 = QIcon(QIcon.fromTheme(u"edit-copy"))
+        self.btnCopyModel.setIcon(icon4)
 
         self.gridLayout.addWidget(self.btnCopyModel, 1, 0, 1, 1)
 
@@ -675,6 +649,8 @@ class Ui_MainWindow(object):
         self.btnPasteModel.setObjectName(u"btnPasteModel")
         self.btnPasteModel.setMinimumSize(QSize(116, 0))
         self.btnPasteModel.setMaximumSize(QSize(116, 16777215))
+        icon5 = QIcon(QIcon.fromTheme(u"edit-paste"))
+        self.btnPasteModel.setIcon(icon5)
 
         self.gridLayout.addWidget(self.btnPasteModel, 1, 1, 1, 1)
 
